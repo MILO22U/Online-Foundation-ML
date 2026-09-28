@@ -55,4 +55,12 @@ These experiments illustrate behavior for the implementations and settings teste
 
 Implementing these algorithms made the exploration–exploitation tradeoff concrete: decisions that seem best from current data can prevent an algorithm from learning about better options. Comparing regret curves and preference estimates helped me connect the mathematical objectives of online learning with actual algorithm behavior. The multiclass project gave me practice reading research, translating theoretical constructions into experiments, and being careful about the limits of empirical evidence.
 
+## Final project: testing a possible limit of local regularization
+
+For my final project, I explored an open question from multiclass learning theory: **can a local regularizer learn every learnable multiclass hypothesis class?** I focused on the H△ construction discussed by Asilis and collaborators, which offers a way to investigate where local regularization might struggle.
+
+I built a Python simulation with a finite version of the construction, compared ERM and several local-regularization choices against a Default-Star learner, and plotted error under different sample sizes and settings. In my experiments, the local-regularization strategies I tested did not match the Default-Star learner. The work helped me connect a theoretical symmetry argument to concrete learner behavior and to examine what the training sample reveals at unseen points.
+
+**Where I stopped:** I did not prove that *every* possible local regularizer fails. My tests cover selected strategies in a finite simulation, and the experimental setup simplifies parts of the theoretical construction. A general answer would require a rigorous argument over all eligible strategies, beyond these plots. I documented the implementation and findings in the [final report](Final_Report.pdf) and included the [project code](local_regularization_project.zip) so the approach can be inspected and extended.
+
 **Author:** [MILO22U](https://github.com/MILO22U) · Oregon State University coursework and independent exploration
