@@ -1,0 +1,136 @@
+\documentclass[12pt,letterpaper]{article}
+
+\newenvironment{proof}{\noindent{\bf Proof:}}{\qed\bigskip}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma} 
+\newtheorem{claim}{Claim}
+\newtheorem{fact}{Fact}
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{observation}{Observation}
+\newtheorem{example}{Example}
+\newcommand{\qed}{\rule{7pt}{7pt}}
+
+\newcommand{\lecture}[5]{
+	\thispagestyle{plain} 
+	\newpage
+	\setcounter{page}{1}
+	\noindent
+	\begin{center}
+		\framebox{ \vbox{ \hbox to 6.28in
+				{\bf AI543: Foundations of Online Machine Learning  \hfill #1}
+				\vspace{4mm}
+				\hbox to 6.28in
+				{\hspace{2.5in}\large\mbox{Lecture #2}}
+				\vspace{4mm}
+				\hbox to 6.28in
+				{{\it Instructor: #3 \hfill Date: #4 \hfill Scriber: #5}}
+			}}
+		\end{center}
+	}
+
+\newcommand{\assignment}[4]{
+\thispagestyle{plain} 
+\newpage
+\setcounter{page}{1}
+\noindent
+\begin{center}
+\framebox{ \vbox{ \hbox to 6.28in
+{\bf AI543: Foundations of Online Machine Learning   \hfill #1}
+\vspace{4mm}
+\hbox to 6.28in
+{\hspace{2.5in}\large\mbox{Homework #2}}
+\vspace{4mm}
+\hbox to 6.28in
+{{\it Handed Out: #3 \hfill Due: #4}}
+}}
+\end{center}
+}
+
+\newcommand{\homework}[3]{
+	\thispagestyle{plain} 
+	\newpage
+	\setcounter{page}{1}
+	\noindent
+	\begin{center}
+		\framebox{ \vbox{ \hbox to 6.28in
+				{\bf AI543: Foundations of Online Machine Learning   \hfill #1}
+				\vspace{4mm}
+				\hbox to 6.28in
+				{\hspace{2.5in}\large\mbox{Homework #2}}
+				\vspace{4mm}
+				\hbox to 6.28in
+				{{\hfill\it Student Name: #3}}
+			}}
+		\end{center}
+	}
+
+\newcommand{\solution}[4]{
+\thispagestyle{plain} 
+\newpage
+\setcounter{page}{1}
+\noindent
+\begin{center}
+\framebox{ \vbox{ \hbox to 6.28in
+{\bf AI543: Foundations of Online Machine Learning   \hfill #4}
+\vspace{4mm}
+\hbox to 6.28in
+{\hspace{2.5in}\large\mbox{Homework Solution #3}}
+\vspace{4mm}
+\hbox to 6.28in
+{#1 \hfill {\it Handed In: #2}}
+}}
+\end{center}
+\markright{#1}
+}
+
+\newenvironment{algorithm}
+{\begin{center}
+\begin{tabular}{|l|}
+\hline
+\begin{minipage}{1in}
+\begin{tabbing}
+\quad\=\qquad\=\qquad\=\qquad\=\qquad\=\qquad\=\qquad\=\kill}
+{\end{tabbing}
+\end{minipage} \\
+\hline
+\end{tabular}
+\end{center}}
+
+\def\Comment#1{\textsf{\textsl{$\langle\!\langle$#1\/$\rangle\!\rangle$}}}
+
+
+\usepackage{graphicx,amssymb,amsmath}
+\sloppy
+\newcommand{\ignore}[1]{}
+
+\oddsidemargin 0in
+\evensidemargin 0in
+\textwidth 6.5in
+\topmargin -0.5in
+\textheight 9.0in
+
+\begin{document}
+
+\homework{Winter 2026}{$1$}{XXX} %Replace XXX with your name
+
+
+\begin{enumerate}
+	
+	\item[1.] 
+	
+	\item[2.] 
+	
+	\item[3.]
+	
+	\item[4.]
+
+        \item[5.]
+
+        \item[6.]
+
+\end{enumerate}
+	
+\end{document}

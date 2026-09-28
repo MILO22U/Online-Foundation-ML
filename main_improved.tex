@@ -1,0 +1,521 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx} % Required for inserting images
+
+\title{DL- Homework 1}
+\author{Mrinal Bharadwaj}
+\date{January 2026}
+
+\begin{document}
+
+\maketitle
+
+
+\section*{Question 1 (Optimization)}
+
+Compute the gradient $\nabla f(x,y)$ and Hessian $\nabla^2 f(x,y)$ of the function
+\[
+f(x,y)=-(x^2-1)^2-y^2+2xy.
+\]
+Find all stationary points of this function. Show that
+\[
+\left(\sqrt{\frac{3}{2}},\sqrt{\frac{3}{2}}\right)
+\]
+is a local maximum.
+
+\section*{Answer to Question 1}
+
+First, expand the function:
+\[
+f(x,y)=-x^4+2x^2-1-y^2+2xy.
+\]
+
+\subsection*{Gradient}
+\[
+\frac{\partial f}{\partial x}=-4x^3+4x+2y,
+\qquad
+\frac{\partial f}{\partial y}=2x-2y.
+\]
+
+\[
+\nabla f(x,y)=
+\begin{bmatrix}
+-4x^3+4x+2y\\
+2x-2y
+\end{bmatrix}.
+\]
+
+\subsection*{Hessian}
+\[
+\frac{\partial^2 f}{\partial x^2}=-12x^2+4,
+\quad
+\frac{\partial^2 f}{\partial y^2}=-2,
+\quad
+\frac{\partial^2 f}{\partial x\partial y}=2.
+\]
+
+\[
+\nabla^2 f(x,y)=
+\begin{bmatrix}
+-12x^2+4 & 2\\
+2 & -2
+\end{bmatrix}.
+\]
+
+\subsection*{Stationary Points}
+
+Solve $\nabla f(x,y)=0$.
+
+From $2x-2y=0$, we get $y=x$.
+Substitute into the first equation:
+\[
+-4x^3+4x+2x=0
+\quad\Rightarrow\quad
+-4x^3+6x=0
+\quad\Rightarrow\quad
+2x(-2x^2+3)=0.
+\]
+
+Thus,
+\[
+x=0 \quad \text{or} \quad x^2=\frac{3}{2} \quad \Rightarrow \quad x=\pm\sqrt{\frac{3}{2}}.
+\]
+Since $y=x$, the stationary points are:
+\[
+(0,0),\quad
+\left(\sqrt{\frac{3}{2}},\sqrt{\frac{3}{2}}\right),\quad
+\left(-\sqrt{\frac{3}{2}},-\sqrt{\frac{3}{2}}\right).
+\]
+
+\subsection*{Local Maximum at $\left(\sqrt{\frac{3}{2}},\sqrt{\frac{3}{2}}\right)$}
+
+At $x=\sqrt{\frac{3}{2}}$, we have $x^2=\frac{3}{2}$, so the Hessian becomes:
+\[
+\nabla^2 f=
+\begin{bmatrix}
+-12\cdot\frac{3}{2}+4 & 2\\
+2 & -2
+\end{bmatrix}
+=
+\begin{bmatrix}
+-14 & 2\\
+2 & -2
+\end{bmatrix}.
+\]
+
+To verify this is a local maximum, we check that the Hessian is negative definite using the leading principal minors criterion:
+\begin{itemize}
+    \item First leading principal minor: $D_1=-14<0$ \checkmark
+    \item Second leading principal minor: $D_2=\det(\nabla^2 f)=(-14)(-2)-(2)(2)=28-4=24>0$ \checkmark
+\end{itemize}
+
+Since $D_1<0$ and $D_2>0$, the Hessian is negative definite at this point.
+
+\textbf{Conclusion:} The point $\left(\sqrt{\frac{3}{2}},\sqrt{\frac{3}{2}}\right)$ is a strict local maximum.
+
+\newpage
+
+\section*{Question 2 (Optimization)}
+
+Show that the function
+\[
+f(x,y)=x^3-3xy^2
+\]
+has only one stationary point, and that it is neither a local minimum nor a local maximum, but a saddle point.
+
+\section*{Answer to Question 2}
+
+\subsection*{Finding All Stationary Points}
+
+Compute the gradient:
+\[
+\frac{\partial f}{\partial x}=3x^2-3y^2,
+\qquad
+\frac{\partial f}{\partial y}=-6xy.
+\]
+
+Set $\nabla f(x,y)=0$:
+\begin{align}
+3x^2-3y^2 &= 0 \quad \Rightarrow \quad x^2=y^2 \quad \Rightarrow \quad y=\pm x, \label{eq:cond1}\\
+-6xy &= 0 \quad \Rightarrow \quad xy=0. \label{eq:cond2}
+\end{align}
+
+From \eqref{eq:cond2}, either $x=0$ or $y=0$.
+\begin{itemize}
+    \item If $x=0$: From \eqref{eq:cond1}, $y^2=0$, so $y=0$.
+    \item If $y=0$: From \eqref{eq:cond1}, $x^2=0$, so $x=0$.
+\end{itemize}
+
+Therefore, the \textbf{only stationary point} is $(x,y)=(0,0)$.
+
+\subsection*{Classification of the Stationary Point}
+
+Compute the Hessian:
+\[
+\frac{\partial^2 f}{\partial x^2}=6x,
+\quad
+\frac{\partial^2 f}{\partial y^2}=-6x,
+\quad
+\frac{\partial^2 f}{\partial x\partial y}=-6y.
+\]
+
+\[
+\nabla^2 f(x,y)=
+\begin{bmatrix}
+6x & -6y\\
+-6y & -6x
+\end{bmatrix}.
+\]
+
+At $(0,0)$:
+\[
+\nabla^2 f(0,0)=
+\begin{bmatrix}
+0 & 0\\
+0 & 0
+\end{bmatrix}.
+\]
+
+The Hessian at the origin is the zero matrix, so the determinant $\det(\nabla^2 f)=0$. This means the \textbf{second derivative test is inconclusive}.
+
+\subsection*{Direct Analysis via Function Values}
+
+Since the Hessian test fails, we analyze the function directly by examining values in every neighborhood of $(0,0)$.
+
+Note that $f(0,0)=0$.
+
+\textbf{Along the path $y=0$:}
+\[
+f(x,0)=x^3,
+\]
+which is positive for $x>0$ and negative for $x<0$.
+
+\textbf{Along the path $y=x$:}
+\[
+f(x,x)=x^3-3x\cdot x^2=x^3-3x^3=-2x^3,
+\]
+which is negative for $x>0$ and positive for $x<0$.
+
+Thus, in every neighborhood of $(0,0)$:
+\begin{itemize}
+    \item There exist points where $f>0$ (e.g., along $y=0$ with $x>0$, or along $y=x$ with $x<0$).
+    \item There exist points where $f<0$ (e.g., along $y=0$ with $x<0$, or along $y=x$ with $x>0$).
+\end{itemize}
+
+\textbf{Conclusion:} Since $f$ takes both positive and negative values in every neighborhood of $(0,0)$ relative to $f(0,0)=0$, the point $(0,0)$ is \textbf{neither a local minimum nor a local maximum}. It is a \textbf{saddle point}.
+
+\newpage
+\section*{Question 3 (Linear Algebra)}
+
+If $A$ and $B$ are positive definite matrices, prove that the block diagonal matrix
+\[
+\begin{bmatrix}
+A & 0 \\
+0 & B
+\end{bmatrix}
+\]
+is also positive definite.
+
+\section*{Answer to Question 3}
+
+\textbf{Definition:} A symmetric matrix $M$ is positive definite if and only if
+\[
+\mathbf{v}^\top M \mathbf{v} > 0 \quad \text{for all } \mathbf{v} \neq \mathbf{0}.
+\]
+
+\textbf{Setup:} Let $A\in\mathbb{R}^{n\times n}$ and $B\in\mathbb{R}^{m\times m}$ be positive definite matrices. Define
+\[
+M =
+\begin{bmatrix}
+A & 0 \\
+0 & B
+\end{bmatrix}
+\in\mathbb{R}^{(n+m)\times(n+m)},
+\qquad
+\mathbf{z} =
+\begin{bmatrix}
+\mathbf{x} \\
+\mathbf{y}
+\end{bmatrix}
+\in\mathbb{R}^{n+m},
+\]
+where $\mathbf{x} \in \mathbb{R}^n$ and $\mathbf{y} \in \mathbb{R}^m$.
+
+\textbf{Proof:} Compute the quadratic form:
+\[
+\mathbf{z}^\top M \mathbf{z}
+=
+\begin{bmatrix}
+\mathbf{x}^\top & \mathbf{y}^\top
+\end{bmatrix}
+\begin{bmatrix}
+A & 0 \\
+0 & B
+\end{bmatrix}
+\begin{bmatrix}
+\mathbf{x} \\
+\mathbf{y}
+\end{bmatrix}
+=
+\begin{bmatrix}
+\mathbf{x}^\top & \mathbf{y}^\top
+\end{bmatrix}
+\begin{bmatrix}
+A\mathbf{x} \\
+B\mathbf{y}
+\end{bmatrix}
+=
+\mathbf{x}^\top A \mathbf{x} + \mathbf{y}^\top B \mathbf{y}.
+\]
+
+Since $A$ is positive definite:
+\[
+\mathbf{x}^\top A \mathbf{x} \geq 0, \quad \text{with equality if and only if } \mathbf{x} = \mathbf{0}.
+\]
+
+Since $B$ is positive definite:
+\[
+\mathbf{y}^\top B \mathbf{y} \geq 0, \quad \text{with equality if and only if } \mathbf{y} = \mathbf{0}.
+\]
+
+Now suppose $\mathbf{z} \neq \mathbf{0}$. Then at least one of $\mathbf{x}$ or $\mathbf{y}$ is nonzero:
+\begin{itemize}
+    \item If $\mathbf{x} \neq \mathbf{0}$, then $\mathbf{x}^\top A \mathbf{x} > 0$.
+    \item If $\mathbf{y} \neq \mathbf{0}$, then $\mathbf{y}^\top B \mathbf{y} > 0$.
+\end{itemize}
+
+In either case (or both), we have:
+\[
+\mathbf{z}^\top M \mathbf{z} = \mathbf{x}^\top A \mathbf{x} + \mathbf{y}^\top B \mathbf{y} > 0.
+\]
+
+\textbf{Conclusion:} For all $\mathbf{z} \neq \mathbf{0}$, we have $\mathbf{z}^\top M \mathbf{z} > 0$. Therefore, the block diagonal matrix
+\[
+\begin{bmatrix}
+A & 0 \\
+0 & B
+\end{bmatrix}
+\]
+is positive definite. \hfill $\square$
+
+\newpage
+\section*{Question 4 (Chain Rule Calculus)}
+
+Consider the function
+\[
+f(\mathbf{x})=\mathbf{w}_2^\top \,\sigma(W_1 \mathbf{x}),
+\]
+where $\sigma(\cdot)=\text{sigmoid}(\cdot)$ applies element-wise to a vector and
+\[
+\sigma(t)=\frac{1}{1+e^{-t}}, \qquad \sigma'(t)=\sigma(t)\bigl(1-\sigma(t)\bigr).
+\]
+Assume $W_1\in\mathbb{R}^{c\times d}$, $\mathbf{x}\in\mathbb{R}^{d\times 1}$, and $\mathbf{w}_2\in\mathbb{R}^{c\times 1}$.
+Compute the derivatives $\frac{\partial f}{\partial \mathbf{w}_2}$, $\frac{\partial f}{\partial W_1}$, and $\frac{\partial f}{\partial \mathbf{x}}$.
+
+\section*{Answer to Question 4}
+
+\subsection*{Setup and Intermediate Variables}
+
+Define the intermediate variables:
+\[
+\mathbf{z} = W_1 \mathbf{x} \in \mathbb{R}^{c\times 1}, \qquad \mathbf{s}=\sigma(\mathbf{z})\in\mathbb{R}^{c\times 1}.
+\]
+Then the function can be written as:
+\[
+f = \mathbf{w}_2^\top \mathbf{s} \in \mathbb{R}.
+\]
+
+The computation graph is: $\mathbf{x} \to \mathbf{z} \to \mathbf{s} \to f$ (with $W_1$ and $\mathbf{w}_2$ as parameters).
+
+\subsection*{1) Derivative with respect to $\mathbf{w}_2$}
+
+Since $f = \mathbf{w}_2^\top \mathbf{s}$ is linear in $\mathbf{w}_2$:
+\[
+\boxed{\frac{\partial f}{\partial \mathbf{w}_2} = \mathbf{s} = \sigma(W_1 \mathbf{x})}
+\qquad (\in \mathbb{R}^{c\times 1}).
+\]
+
+\subsection*{2) Derivative with respect to $\mathbf{x}$}
+
+Apply the chain rule: $\frac{\partial f}{\partial \mathbf{x}} = \frac{\partial \mathbf{z}}{\partial \mathbf{x}}^\top \frac{\partial f}{\partial \mathbf{z}}$.
+
+First, compute $\frac{\partial f}{\partial \mathbf{z}}$:
+\[
+\frac{\partial f}{\partial \mathbf{s}} = \mathbf{w}_2 \in \mathbb{R}^{c\times 1}.
+\]
+
+Since $\mathbf{s} = \sigma(\mathbf{z})$ applies element-wise:
+\[
+\frac{\partial s_i}{\partial z_j} = 
+\begin{cases}
+\sigma'(z_i) = s_i(1-s_i) & \text{if } i=j\\
+0 & \text{if } i\neq j
+\end{cases}
+\]
+
+So $\frac{\partial \mathbf{s}}{\partial \mathbf{z}} = \text{diag}(\mathbf{s}\odot(\mathbf{1}-\mathbf{s}))$, and by the chain rule:
+\[
+\frac{\partial f}{\partial \mathbf{z}}
+=
+\frac{\partial f}{\partial \mathbf{s}}\odot \frac{\partial \mathbf{s}}{\partial \mathbf{z}}
+=
+\mathbf{w}_2 \odot \mathbf{s} \odot (\mathbf{1}-\mathbf{s})
+\qquad (\in \mathbb{R}^{c\times 1}),
+\]
+where $\odot$ denotes the element-wise (Hadamard) product.
+
+Since $\mathbf{z}=W_1 \mathbf{x}$, we have $\frac{\partial \mathbf{z}}{\partial \mathbf{x}} = W_1$, so:
+\[
+\boxed{\frac{\partial f}{\partial \mathbf{x}}
+=
+W_1^\top \frac{\partial f}{\partial \mathbf{z}}
+=
+W_1^\top \bigl(\mathbf{w}_2 \odot \mathbf{s} \odot (\mathbf{1}-\mathbf{s})\bigr)}
+\qquad (\in \mathbb{R}^{d\times 1}).
+\]
+
+\subsection*{3) Derivative with respect to $W_1$}
+
+For $\mathbf{z}=W_1\mathbf{x}$, the derivative of a scalar $f$ with respect to matrix $W_1$ is:
+\[
+\frac{\partial f}{\partial W_1}
+=
+\frac{\partial f}{\partial \mathbf{z}} \, \mathbf{x}^\top.
+\]
+
+Therefore:
+\[
+\boxed{\frac{\partial f}{\partial W_1}
+=
+\bigl(\mathbf{w}_2 \odot \mathbf{s} \odot (\mathbf{1}-\mathbf{s})\bigr) \mathbf{x}^\top}
+\qquad (\in \mathbb{R}^{c\times d}).
+\]
+
+\subsection*{Summary of Results}
+
+Let $\mathbf{s}=\sigma(W_1\mathbf{x})$. The derivatives are:
+
+\begin{align*}
+\frac{\partial f}{\partial \mathbf{w}_2} &= \mathbf{s} \in \mathbb{R}^{c\times 1}\\[6pt]
+\frac{\partial f}{\partial \mathbf{x}} &= W_1^\top\bigl(\mathbf{w}_2\odot \mathbf{s}\odot(\mathbf{1}-\mathbf{s})\bigr) \in \mathbb{R}^{d\times 1}\\[6pt]
+\frac{\partial f}{\partial W_1} &= \bigl(\mathbf{w}_2\odot \mathbf{s}\odot(\mathbf{1}-\mathbf{s})\bigr)\,\mathbf{x}^\top \in \mathbb{R}^{c\times d}
+\end{align*}
+
+\newpage
+\section*{Question 5 (High Dimensional Statistics: Curse of Dimensionality)}
+
+Consider $N$ data points independently and uniformly distributed in a
+$p$-dimensional unit ball
+\[
+B=\{x\in\mathbb{R}^p : \|x\|_2 \le 1\}
+\]
+centered at the origin. The median distance from the origin to the closest
+data point is given by
+\[
+d(p,N)=\left(1-2^{-1/N}\right)^{1/p}.
+\]
+
+Prove this expression. Then compute the median distance $d(p,N)$ for
+$N=10{,}000$ and $p=1{,}000$.
+
+\section*{Answer to Question 5}
+
+Let $R_{\min}$ denote the distance from the origin to the closest of the
+$N$ data points.
+
+\subsection*{Step 1: CDF of distance for a single point}
+
+For a single point $\mathbf{x}$ drawn uniformly from the $p$-dimensional unit ball, we derive the probability that its distance from the origin is at most $r \in [0,1]$.
+
+The volume of a $p$-dimensional ball of radius $r$ is:
+\[
+V_p(r) = \frac{\pi^{p/2}}{\Gamma\left(\frac{p}{2}+1\right)} r^p = V_p(1) \cdot r^p,
+\]
+where $V_p(1)$ is the volume of the unit ball.
+
+Since the point is uniformly distributed, the probability is the ratio of volumes:
+\[
+\mathbb{P}(\|\mathbf{x}\| \le r) = \frac{V_p(r)}{V_p(1)} = \frac{V_p(1) \cdot r^p}{V_p(1)} = r^p.
+\]
+
+Therefore:
+\[
+\mathbb{P}(\|\mathbf{x}\| > r) = 1 - r^p.
+\]
+
+\subsection*{Step 2: Distribution of the minimum distance}
+
+Since the $N$ points are independent, the probability that \textit{all} points have distance greater than $r$ is:
+\[
+\mathbb{P}(R_{\min} > r) = \mathbb{P}(\|\mathbf{x}_1\| > r) \cdot \mathbb{P}(\|\mathbf{x}_2\| > r) \cdots \mathbb{P}(\|\mathbf{x}_N\| > r) = (1 - r^p)^N.
+\]
+
+\subsection*{Step 3: Finding the median}
+
+By definition, the median distance $d(p,N)$ satisfies:
+\[
+\mathbb{P}(R_{\min} > d(p,N)) = \frac{1}{2}.
+\]
+
+Substituting our expression:
+\[
+(1 - d(p,N)^p)^N = \frac{1}{2}.
+\]
+
+Taking the $N$-th root of both sides:
+\[
+1 - d(p,N)^p = 2^{-1/N}.
+\]
+
+Solving for $d(p,N)^p$:
+\[
+d(p,N)^p = 1 - 2^{-1/N}.
+\]
+
+Taking the $p$-th root:
+\[
+\boxed{d(p,N) = \left(1 - 2^{-1/N}\right)^{1/p}}
+\]
+
+\subsection*{Step 4: Numerical Evaluation for $N=10{,}000$ and $p=1{,}000$}
+
+We compute $d(1000, 10000) = \left(1 - 2^{-1/10000}\right)^{1/1000}$.
+
+\textbf{Step 4a:} Compute $2^{-1/10000}$.
+
+Using the Taylor expansion $2^x = e^{x\ln 2} \approx 1 + x\ln 2$ for small $|x|$:
+\[
+2^{-1/10000} = e^{-(\ln 2)/10000} \approx 1 - \frac{\ln 2}{10000} \approx 1 - \frac{0.6931}{10000} \approx 0.99993069.
+\]
+
+\textbf{Step 4b:} Compute $1 - 2^{-1/10000}$.
+\[
+1 - 2^{-1/10000} \approx \frac{\ln 2}{10000} \approx 6.931 \times 10^{-5}.
+\]
+
+\textbf{Step 4c:} Compute $\left(1 - 2^{-1/10000}\right)^{1/1000}$.
+\[
+d(1000, 10000) = \left(\frac{\ln 2}{10000}\right)^{1/1000} = \exp\left(\frac{1}{1000}\ln\left(\frac{\ln 2}{10000}\right)\right).
+\]
+
+Computing the logarithm:
+\[
+\ln\left(\frac{\ln 2}{10000}\right) = \ln(\ln 2) - \ln(10000) \approx -0.3665 - 9.2103 \approx -9.5768.
+\]
+
+Therefore:
+\[
+d(1000, 10000) \approx \exp\left(\frac{-9.5768}{1000}\right) = \exp(-0.0095768) \approx 0.9905.
+\]
+
+\[
+\boxed{d(1000, 10000) \approx 0.99}
+\]
+
+\subsection*{Interpretation: The Curse of Dimensionality}
+
+This result demonstrates the \textbf{curse of dimensionality}: even with $N=10{,}000$ data points in a $p=1{,}000$ dimensional space, the closest point to the origin has a median distance of approximately $0.99$---very close to the boundary of the unit ball.
+
+In high dimensions, data points become increasingly sparse, and even the ``nearest neighbor'' is far from the center. This has profound implications for machine learning algorithms that rely on distance-based measures.
+
+\end{document}

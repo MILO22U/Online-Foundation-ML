@@ -1,0 +1,418 @@
+\documentclass{article}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx} % Required for inserting images
+
+\title{DL- Homework 1}
+\author{Mrinal Bharadwaj}
+\date{January 2026}
+
+\begin{document}
+
+\maketitle
+
+
+\section*{Question 1 (Optimization)}
+
+Compute the gradient $\nabla f(x,y)$ and Hessian $\nabla^2 f(x,y)$ of the function
+\[
+f(x,y)=-(x^2-1)^2-y^2+2xy.
+\]
+Find all stationary points of this function. Show that
+\[
+\left(\sqrt{\frac{3}{2}},\sqrt{\frac{3}{2}}\right)
+\]
+is a local maximum.
+
+\section*{Answer to Question 1}
+
+First, expand the function:
+\[
+f(x,y)=-x^4+2x^2-1-y^2+2xy.
+\]
+
+\subsection*{Gradient}
+\[
+\frac{\partial f}{\partial x}=-4x^3+4x+2y,
+\qquad
+\frac{\partial f}{\partial y}=2x-2y.
+\]
+
+\[
+\nabla f(x,y)=
+\begin{bmatrix}
+-4x^3+4x+2y\\
+2x-2y
+\end{bmatrix}.
+\]
+
+\subsection*{Hessian}
+\[
+\frac{\partial^2 f}{\partial x^2}=4-12x^2,
+\quad
+\frac{\partial^2 f}{\partial y^2}=-2,
+\quad
+\frac{\partial^2 f}{\partial x\partial y}=2.
+\]
+
+\[
+\nabla^2 f(x,y)=
+\begin{bmatrix}
+4-12x^2 & 2\\
+2 & -2
+\end{bmatrix}.
+\]
+
+\subsection*{Stationary Points}
+
+Solve $\nabla f(x,y)=0$.
+
+From $2x-2y=0$, we get $y=x$.
+Substitute into the first equation:
+\[
+-4x^3+6x=0
+\quad\Rightarrow\quad
+2x(2x^2-3)=0.
+\]
+
+Thus,
+\[
+x=0 \quad \text{or} \quad x=\pm\sqrt{\frac{3}{2}}.
+\]
+Since $y=x$, the stationary points are:
+\[
+(0,0),\;
+\left(\sqrt{\frac{3}{2}},\sqrt{\frac{3}{2}}\right),\;
+\left(-\sqrt{\frac{3}{2}},-\sqrt{\frac{3}{2}}\right).
+\]
+
+\subsection*{Local Maximum}
+
+At $x^2=\frac{3}{2}$, the Hessian becomes:
+\[
+\nabla^2 f=
+\begin{bmatrix}
+-14 & 2\\
+2 & -2
+\end{bmatrix}.
+\]
+
+Compute principal minors:
+\[
+D_1=-14<0,
+\qquad
+D_2=\det(\nabla^2 f)=28-4=24>0.
+\]
+
+Hence, the Hessian is negative definite, and
+\[
+\left(\sqrt{\frac{3}{2}},\sqrt{\frac{3}{2}}\right)
+\]
+is a strict local maximum.
+
+\newpage
+
+\section*{Question 2 (Optimization)}
+
+Show that the function
+\[
+f(x,y)=x^3-3xy^2
+\]
+has only one stationary point, and that it is neither a local minimum nor a local maximum, but a saddle point.
+
+\section*{Answer to Question 2}
+
+\subsection*{Stationary Point}
+
+Compute the gradient:
+\[
+\frac{\partial f}{\partial x}=3x^2-3y^2,
+\qquad
+\frac{\partial f}{\partial y}=-6xy.
+\]
+
+Set $\nabla f(x,y)=0$:
+\[
+3(x^2-y^2)=0 \Rightarrow x^2=y^2,
+\]
+\[
+-6xy=0 \Rightarrow xy=0.
+\]
+
+The only solution satisfying both equations is:
+\[
+(x,y)=(0,0).
+\]
+
+\subsection*{Classification}
+
+Evaluate $f$ along different paths approaching $(0,0)$.
+
+Along $y=0$:
+\[
+f(x,0)=x^3,
+\]
+which is positive for $x>0$ and negative for $x<0$.
+
+Along $y=x$:
+\[
+f(x,x)=x^3-3x^3=-2x^3,
+\]
+which is negative for $x>0$ and positive for $x<0$.
+
+Thus, in every neighborhood of $(0,0)$, the function takes both positive and negative values relative to $f(0,0)=0$.
+
+\subsection*{Conclusion}
+\[
+(0,0)\text{ is neither a local minimum nor a local maximum, but a saddle point.}
+\]
+
+\newpage
+\section*{Question 3 (Linear Algebra)}
+
+If $A$ and $B$ are positive definite matrices, prove that the block diagonal matrix
+\[
+\begin{bmatrix}
+A & 0 \\
+0 & B
+\end{bmatrix}
+\]
+is also positive definite.
+
+\section*{Answer to Question 3}
+
+Recall that a symmetric matrix $M$ is positive definite if and only if
+\[
+x^\top M x > 0 \quad \text{for all } x \neq 0.
+\]
+
+Let
+\[
+M =
+\begin{bmatrix}
+A & 0 \\
+0 & B
+\end{bmatrix},
+\qquad
+z =
+\begin{bmatrix}
+x \\
+y
+\end{bmatrix},
+\]
+where $x \in \mathbb{R}^n$ and $y \in \mathbb{R}^m$, not both zero.
+
+Then
+\[
+z^\top M z
+=
+\begin{bmatrix}
+x^\top & y^\top
+\end{bmatrix}
+\begin{bmatrix}
+A & 0 \\
+0 & B
+\end{bmatrix}
+\begin{bmatrix}
+x \\
+y
+\end{bmatrix}
+=
+x^\top A x + y^\top B y.
+\]
+
+Since $A$ and $B$ are positive definite,
+\[
+x^\top A x > 0 \quad \text{for } x \neq 0,
+\qquad
+y^\top B y > 0 \quad \text{for } y \neq 0.
+\]
+
+If $z \neq 0$, then at least one of $x$ or $y$ is nonzero, implying
+\[
+z^\top M z = x^\top A x + y^\top B y > 0.
+\]
+
+Therefore, it
+\[
+\begin{bmatrix}
+A & 0 \\
+0 & B
+\end{bmatrix}
+\]
+is positive definite.
+\newpage
+\section*{Question 4 (Chain Rule Calculus)}
+
+Consider the function
+\[
+f(x)=w_2^\top \,\sigma(W_1 x),
+\]
+where $\sigma(\cdot)=\text{sigmoid}(\cdot)$ applies element-wise to a vector and
+\[
+\sigma(t)=\frac{1}{1+e^{-t}}, \qquad \sigma'(t)=\sigma(t)\bigl(1-\sigma(t)\bigr).
+\]
+Assume $W_1\in\mathbb{R}^{c\times d}$, $x\in\mathbb{R}^{d\times 1}$, and $w_2\in\mathbb{R}^{c\times 1}$.
+Compute the derivatives $\frac{\partial f}{\partial w_2}$, $\frac{\partial f}{\partial W_1}$, and $\frac{\partial f}{\partial x}$.
+
+\section*{Answer to Question 4}
+
+Define the intermediate variables
+\[
+z = W_1 x \in \mathbb{R}^{c\times 1}, \qquad s=\sigma(z)\in\mathbb{R}^{c\times 1}.
+\]
+Then
+\[
+f = w_2^\top s \in \mathbb{R}.
+\]
+
+\subsection*{1) Derivative w.r.t. $w_2$}
+Since $f = w_2^\top s$ is linear in $w_2$,
+\[
+\frac{\partial f}{\partial w_2} = s = \sigma(W_1 x)
+\qquad (\in \mathbb{R}^{c\times 1}).
+\]
+
+\subsection*{2) Derivative w.r.t. $x$}
+First compute $\frac{\partial f}{\partial z}$:
+\[
+\frac{\partial f}{\partial s} = w_2,
+\qquad
+\frac{\partial s}{\partial z} = \sigma'(z)= s\odot(1-s),
+\]
+so (element-wise chain rule)
+\[
+\frac{\partial f}{\partial z}
+=
+\frac{\partial f}{\partial s}\odot \frac{\partial s}{\partial z}
+=
+w_2 \odot s \odot (1-s)
+\qquad (\in \mathbb{R}^{c\times 1}),
+\]
+where $\odot$ denotes element-wise (Hadamard) product.
+
+Because $z=W_1 x$, we have
+\[
+\frac{\partial f}{\partial x}
+=
+W_1^\top \frac{\partial f}{\partial z}
+=
+W_1^\top \bigl(w_2 \odot s \odot (1-s)\bigr)
+\qquad (\in \mathbb{R}^{d\times 1}).
+\]
+
+\subsection*{3) Derivative w.r.t. $W_1$}
+Using $z=W_1x$ and the fact that $\frac{\partial z}{\partial W_1}$ produces an outer product,
+\[
+\frac{\partial f}{\partial W_1}
+=
+\left(\frac{\partial f}{\partial z}\right) x^\top
+=
+\bigl(w_2 \odot s \odot (1-s)\bigr) x^\top
+\qquad (\in \mathbb{R}^{c\times d}).
+\]
+
+\subsection*{Final Results (compact form)}
+Let $s=\sigma(W_1x)$. Then
+\[
+\boxed{\frac{\partial f}{\partial w_2}=s}
+\]
+\[
+\boxed{\frac{\partial f}{\partial x}=W_1^\top\bigl(w_2\odot s\odot(1-s)\bigr)}
+\]
+\[
+\boxed{\frac{\partial f}{\partial W_1}=\bigl(w_2\odot s\odot(1-s)\bigr)\,x^\top.}
+\]
+
+\newpage
+\section*{Question 5 (High Dimensional Statistics: Curse of Dimensionality)}
+
+Consider $N$ data points independently and uniformly distributed in a
+$p$-dimensional unit ball
+\[
+B=\{x\in\mathbb{R}^p : \|x\|_2 \le 1\}
+\]
+centered at the origin. The median distance from the origin to the closest
+data point is given by
+\[
+d(p,N)=\left(1-2^{-1/N}\right)^{1/p}.
+\]
+
+Prove this expression. Then compute the median distance $d(p,N)$ for
+$N=10{,}000$ and $p=1{,}000$.
+
+\section*{Answer to Question 5}
+
+Let $R_{\min}$ denote the distance from the origin to the closest of the
+$N$ data points.
+
+\subsection*{Step 1: Probability distribution of $R_{\min}$}
+
+For a point drawn uniformly from the unit ball, the probability that its
+distance from the origin is at most $r \in [0,1]$ is proportional to the
+$p$-dimensional volume contained within radius $r$. Since the total volume
+is normalized to $1$, this probability is
+\[
+\mathbb{P}(\|x\| \le r) = r^p.
+\]
+
+Hence,
+\[
+\mathbb{P}(\|x\| > r) = 1 - r^p.
+\]
+
+Because the $N$ points are independent,
+\[
+\mathbb{P}(R_{\min} > r) = (1 - r^p)^N.
+\]
+
+\subsection*{Step 2: Definition of the median}
+
+By definition, the median distance $d(p,N)$ satisfies
+\[
+\mathbb{P}(R_{\min} > d(p,N)) = \frac{1}{2}.
+\]
+
+Substituting the expression above,
+\[
+(1 - d(p,N)^p)^N = \frac{1}{2}.
+\]
+
+Taking the $N$th root,
+\[
+1 - d(p,N)^p = 2^{-1/N}.
+\]
+
+Solving for $d(p,N)$ gives
+\[
+d(p,N)^p = 1 - 2^{-1/N},
+\]
+\[
+d(p,N) = \left(1 - 2^{-1/N}\right)^{1/p}.
+\]
+
+\subsection*{Step 3: Numerical evaluation}
+
+For $N=10{,}000$ and $p=1{,}000$,
+\[
+d(1000,10000)
+=
+\left(1 - 2^{-1/10000}\right)^{1/1000}.
+\]
+
+Using the approximation $2^{-1/N} \approx 1 - \frac{\ln 2}{N}$ for large $N$,
+\[
+d(1000,10000)
+\approx
+\exp\!\left(\frac{1}{1000}
+\ln\!\left(\frac{\ln 2}{10000}\right)\right)
+\approx 0.99.
+\]
+
+\subsection*{Conclusion}
+
+Even with a large number of data points, in high dimensions the closest
+point to the origin lies very close to the boundary of the unit ball,
+demonstrating the \textbf{curse of dimensionality}.
+
+
+\end{document}

@@ -1,0 +1,854 @@
+\documentclass[12pt,letterpaper]{article}
+
+\newenvironment{proof}{\noindent{\bf Proof:}}{\qed\bigskip}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}{Corollary}
+\newtheorem{lemma}{Lemma} 
+\newtheorem{claim}{Claim}
+\newtheorem{fact}{Fact}
+\newtheorem{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem{observation}{Observation}
+\newtheorem{example}{Example}
+\newcommand{\qed}{\rule{7pt}{7pt}}
+
+\newcommand{\lecture}[5]{
+	\thispagestyle{plain} 
+	\newpage
+	\setcounter{page}{1}
+	\noindent
+	\begin{center}
+		\framebox{ \vbox{ \hbox to 6.28in
+				{\bf AI543: Foundations of Online Machine Learning  \hfill #1}
+				\vspace{4mm}
+				\hbox to 6.28in
+				{\hspace{2.5in}\large\mbox{Lecture #2}}
+				\vspace{4mm}
+				\hbox to 6.28in
+				{{\it Instructor: #3 \hfill Date: #4 \hfill Scriber: #5}}
+			}}
+		\end{center}
+	}
+
+\newcommand{\assignment}[4]{
+\thispagestyle{plain} 
+\newpage
+\setcounter{page}{1}
+\noindent
+\begin{center}
+\framebox{ \vbox{ \hbox to 6.28in
+{\bf AI543: Foundations of Online Machine Learning   \hfill #1}
+\vspace{4mm}
+\hbox to 6.28in
+{\hspace{2.5in}\large\mbox{Homework #2}}
+\vspace{4mm}
+\hbox to 6.28in
+{{\it Handed Out: #3 \hfill Due: #4}}
+}}
+\end{center}
+}
+
+\newcommand{\homework}[3]{
+	\thispagestyle{plain} 
+	\newpage
+	\setcounter{page}{1}
+	\noindent
+	\begin{center}
+		\framebox{ \vbox{ \hbox to 6.28in
+				{\bf AI543: Foundations of Online Machine Learning   \hfill #1}
+				\vspace{4mm}
+				\hbox to 6.28in
+				{\hspace{2.5in}\large\mbox{Homework #2}}
+				\vspace{4mm}
+				\hbox to 6.28in
+				{\it OSU ID: 934--632--976 \hfill Student Name: Mrinal Bharadwaj}
+                \hbox to 6.28in
+                {\it Date: January 28, 2026 \hfill}
+			}}
+		\end{center}
+	}
+
+\newcommand{\solution}[4]{
+\thispagestyle{plain} 
+\newpage
+\setcounter{page}{1}
+\noindent
+\begin{center}
+\framebox{ \vbox{ \hbox to 6.28in
+{\bf AI543: Foundations of Online Machine Learning   \hfill #4}
+\vspace{4mm}
+\hbox to 6.28in
+{\hspace{2.5in}\large\mbox{Homework Solution #3}}
+\vspace{4mm}
+\hbox to 6.28in
+{#1 \hfill {\it Handed In: #2}}
+}}
+\end{center}
+\markright{#1}
+}
+
+\newenvironment{algorithm}
+{\begin{center}
+\begin{tabular}{|l|}
+\hline
+\begin{minipage}{1in}
+\begin{tabbing}
+\quad\=\qquad\=\qquad\=\qquad\=\qquad\=\qquad\=\qquad\=\kill}
+{\end{tabbing}
+\end{minipage} \\
+\hline
+\end{tabular}
+\end{center}}
+
+\def\Comment#1{\textsf{\textsl{$\langle\!\langle$#1\/$\rangle\!\rangle$}}}
+
+
+\usepackage{graphicx,amssymb,amsmath}
+\sloppy
+\newcommand{\ignore}[1]{}
+
+\oddsidemargin 0in
+\evensidemargin 0in
+\textwidth 6.5in
+\topmargin -0.5in
+\textheight 9.0in
+
+\begin{document}
+
+\homework{Winter 2026}{$1$}{XXX} %Replace XXX with your name
+
+
+\begin{enumerate}
+	
+	\item[1.] 
+    \textbf{Problem:} Let $C$ be the solution set of a quadratic inequality:
+\[
+C = \{\mathbf{x} \in \mathbb{R}^d : \mathbf{x}^\top A\mathbf{x} + \mathbf{b}^\top \mathbf{x} + c \leq 0\},
+\]
+where $\mathbf{b} \in \mathbb{R}^d$, $c \in \mathbb{R}$, $A \in \mathbb{R}^{d \times d}$ is a symmetric matrix. Show that $C$ is convex if $A \succ 0$.
+
+\bigskip
+
+\textbf{Solution:}
+
+\begin{proof}
+Define the function $f: \mathbb{R}^d \to \mathbb{R}$ by
+\[
+f(\mathbf{x}) = \mathbf{x}^\top A\mathbf{x} + \mathbf{b}^\top \mathbf{x} + c.
+\]
+
+Note that $C = \{\mathbf{x} \in \mathbb{R}^d : f(\mathbf{x}) \leq 0\}$ is the sublevel set of $f$ at level 0.
+
+\textbf{Step 1: Show that $f$ is convex when $A \succ 0$.}
+
+We compute the Hessian of $f$. The gradient is:
+\[
+\nabla f(\mathbf{x}) = 2A\mathbf{x} + \mathbf{b}.
+\]
+
+The Hessian is:
+\[
+\nabla^2 f(\mathbf{x}) = 2A.
+\]
+
+Since $A \succ 0$ (positive definite), we have $2A \succ 0$, which means the Hessian is positive definite for all $\mathbf{x}$.
+
+Therefore, $f$ is a strictly convex function.
+
+\textbf{Step 2: Sublevel sets of convex functions are convex.}
+
+Let $\mathbf{x}, \mathbf{y} \in C$ and $\lambda \in [0, 1]$. We need to show that $\lambda \mathbf{x} + (1-\lambda)\mathbf{y} \in C$.
+
+Since $\mathbf{x}, \mathbf{y} \in C$, we have:
+\[
+f(\mathbf{x}) \leq 0 \quad \text{and} \quad f(\mathbf{y}) \leq 0.
+\]
+
+Since $f$ is convex, by the definition of convexity:
+\[
+f(\lambda \mathbf{x} + (1-\lambda)\mathbf{y}) \leq \lambda f(\mathbf{x}) + (1-\lambda)f(\mathbf{y}).
+\]
+
+Using our bounds:
+\[
+f(\lambda \mathbf{x} + (1-\lambda)\mathbf{y}) \leq \lambda f(\mathbf{x}) + (1-\lambda)f(\mathbf{y}) \leq \lambda \cdot 0 + (1-\lambda) \cdot 0 = 0.
+\]
+
+Therefore, $\lambda \mathbf{x} + (1-\lambda)\mathbf{y} \in C$.
+
+\textbf{Conclusion:} Since for any two points in $C$ and any $\lambda \in [0,1]$, their convex combination also lies in $C$, the set $C$ is convex.
+
+\end{proof}
+
+	
+	\item[2.] 
+	\textbf{Problem:} Show that
+\[
+f(x) = \frac{1}{2}\|x\|_2^2, \quad x \in \mathbb{R}^d,
+\]
+is 1-strongly convex w.r.t.\ $\|\cdot\|_2$.
+
+\bigskip
+
+\textbf{Solution:}
+
+\begin{proof}
+We will provide three different approaches to prove this result.
+
+\bigskip
+
+\textbf{Method 1: Using the Hessian (Second-Order Condition)}
+
+A twice-differentiable function $f$ is $\mu$-strongly convex if and only if 
+\[
+\nabla^2 f(x) \succeq \mu I \quad \text{for all } x.
+\]
+
+For $f(x) = \frac{1}{2}\|x\|_2^2 = \frac{1}{2}x^\top x$:
+
+The gradient is:
+\[
+\nabla f(x) = x.
+\]
+
+The Hessian is:
+\[
+\nabla^2 f(x) = I,
+\]
+where $I$ is the $d \times d$ identity matrix.
+
+Since $\nabla^2 f(x) = I \succeq 1 \cdot I$, the function $f$ is 1-strongly convex.
+
+\bigskip
+
+\textbf{Method 2: Using the Definition of Strong Convexity}
+
+A function $f$ is $\mu$-strongly convex w.r.t.\ $\|\cdot\|_2$ if for all $x, y \in \mathbb{R}^d$ and $\lambda \in [0,1]$:
+\[
+f(\lambda x + (1-\lambda)y) \leq \lambda f(x) + (1-\lambda)f(y) - \frac{\mu}{2}\lambda(1-\lambda)\|x - y\|_2^2.
+\]
+
+We need to verify this for $\mu = 1$. Let $z = \lambda x + (1-\lambda)y$. Then:
+\[
+f(z) = \frac{1}{2}\|\lambda x + (1-\lambda)y\|_2^2.
+\]
+
+Expanding the right-hand side:
+\begin{align*}
+\frac{1}{2}\|\lambda x + (1-\lambda)y\|_2^2 &= \frac{1}{2}\left[\lambda^2\|x\|_2^2 + 2\lambda(1-\lambda)x^\top y + (1-\lambda)^2\|y\|_2^2\right].
+\end{align*}
+
+Now, compute $\lambda f(x) + (1-\lambda)f(y) - \frac{1}{2}\lambda(1-\lambda)\|x-y\|_2^2$:
+\begin{align*}
+&= \frac{\lambda}{2}\|x\|_2^2 + \frac{1-\lambda}{2}\|y\|_2^2 - \frac{\lambda(1-\lambda)}{2}\|x-y\|_2^2 \\
+&= \frac{\lambda}{2}\|x\|_2^2 + \frac{1-\lambda}{2}\|y\|_2^2 - \frac{\lambda(1-\lambda)}{2}\left(\|x\|_2^2 - 2x^\top y + \|y\|_2^2\right) \\
+&= \frac{1}{2}\left[\lambda\|x\|_2^2 + (1-\lambda)\|y\|_2^2 - \lambda(1-\lambda)\|x\|_2^2 + 2\lambda(1-\lambda)x^\top y - \lambda(1-\lambda)\|y\|_2^2\right] \\
+&= \frac{1}{2}\left[\lambda(1-(1-\lambda))\|x\|_2^2 + (1-\lambda)(1-\lambda)\|y\|_2^2 + 2\lambda(1-\lambda)x^\top y\right] \\
+&= \frac{1}{2}\left[\lambda^2\|x\|_2^2 + (1-\lambda)^2\|y\|_2^2 + 2\lambda(1-\lambda)x^\top y\right] \\
+&= \frac{1}{2}\|\lambda x + (1-\lambda)y\|_2^2 = f(z).
+\end{align*}
+
+The inequality holds with equality, confirming that $f$ is 1-strongly convex.
+
+\bigskip
+
+\textbf{Method 3: Using the First-Order Condition}
+
+A differentiable function $f$ is $\mu$-strongly convex if and only if for all $x, y \in \mathbb{R}^d$:
+\[
+f(y) \geq f(x) + \nabla f(x)^\top (y - x) + \frac{\mu}{2}\|y - x\|_2^2.
+\]
+
+With $\nabla f(x) = x$, we need to show:
+\[
+\frac{1}{2}\|y\|_2^2 \geq \frac{1}{2}\|x\|_2^2 + x^\top(y - x) + \frac{1}{2}\|y - x\|_2^2.
+\]
+
+Expanding the right-hand side:
+\begin{align*}
+\text{RHS} &= \frac{1}{2}\|x\|_2^2 + x^\top y - \|x\|_2^2 + \frac{1}{2}\left(\|y\|_2^2 - 2x^\top y + \|x\|_2^2\right) \\
+&= \frac{1}{2}\|x\|_2^2 + x^\top y - \|x\|_2^2 + \frac{1}{2}\|y\|_2^2 - x^\top y + \frac{1}{2}\|x\|_2^2 \\
+&= \frac{1}{2}\|y\|_2^2 = \text{LHS}.
+\end{align*}
+
+The inequality holds with equality, confirming 1-strong convexity.
+
+\bigskip
+
+\textbf{Conclusion:} By all three methods, we have shown that $f(x) = \frac{1}{2}\|x\|_2^2$ is 1-strongly convex with respect to $\|\cdot\|_2$.
+
+\end{proof}
+	\item[3.]
+    \textbf{Problem:} Recall the definition of $p$-norms as
+\[
+\|x\|_p = \left(\sum_{i=1}^{d}|x_i|^p\right)^{1/p}
+\]
+for $p \geq 1$.
+
+\begin{enumerate}
+    \item Show that 2-norms are always convex.
+    \item Show that $p$-norms are always convex. [Hint: Apply Minkowski inequality]
+\end{enumerate}
+
+\bigskip
+
+\textbf{Solution:}
+
+\bigskip
+
+\textbf{Part (1): Show that 2-norms are always convex.}
+
+\begin{proof}
+A function $f: \mathbb{R}^d \to \mathbb{R}$ is convex if for all $x, y \in \mathbb{R}^d$ and $\lambda \in [0,1]$:
+\[
+f(\lambda x + (1-\lambda)y) \leq \lambda f(x) + (1-\lambda)f(y).
+\]
+
+Let $f(x) = \|x\|_2 = \sqrt{\sum_{i=1}^{d} x_i^2}$. We need to show:
+\[
+\|\lambda x + (1-\lambda)y\|_2 \leq \lambda\|x\|_2 + (1-\lambda)\|y\|_2.
+\]
+
+\textbf{Method 1: Using the Triangle Inequality}
+
+The 2-norm satisfies the triangle inequality:
+\[
+\|a + b\|_2 \leq \|a\|_2 + \|b\|_2 \quad \text{for all } a, b \in \mathbb{R}^d.
+\]
+
+Let $a = \lambda x$ and $b = (1-\lambda)y$. Then:
+\begin{align*}
+\|\lambda x + (1-\lambda)y\|_2 &\leq \|\lambda x\|_2 + \|(1-\lambda)y\|_2 \\
+&= |\lambda| \cdot \|x\|_2 + |1-\lambda| \cdot \|y\|_2 \\
+&= \lambda \|x\|_2 + (1-\lambda)\|y\|_2,
+\end{align*}
+where the last equality holds because $\lambda \in [0,1]$, so $\lambda \geq 0$ and $1-\lambda \geq 0$.
+
+This proves that $\|x\|_2$ is convex.
+
+\bigskip
+
+\textbf{Method 2: Using the Cauchy-Schwarz Inequality}
+
+The triangle inequality for the 2-norm can be derived from the Cauchy-Schwarz inequality. For any $a, b \in \mathbb{R}^d$:
+\[
+\|a + b\|_2^2 = \|a\|_2^2 + 2a^\top b + \|b\|_2^2 \leq \|a\|_2^2 + 2\|a\|_2\|b\|_2 + \|b\|_2^2 = (\|a\|_2 + \|b\|_2)^2,
+\]
+where we used $a^\top b \leq \|a\|_2\|b\|_2$ (Cauchy-Schwarz).
+
+Taking square roots: $\|a + b\|_2 \leq \|a\|_2 + \|b\|_2$.
+
+The convexity then follows as in Method 1.
+\end{proof}
+
+\bigskip
+
+\textbf{Part (2): Show that $p$-norms are always convex for $p \geq 1$.}
+
+\begin{proof}
+We use the \textbf{Minkowski Inequality}, which states that for $p \geq 1$ and any $a, b \in \mathbb{R}^d$:
+\[
+\|a + b\|_p \leq \|a\|_p + \|b\|_p.
+\]
+
+This is the triangle inequality for the $p$-norm.
+
+\bigskip
+
+To prove convexity of $f(x) = \|x\|_p$, let $x, y \in \mathbb{R}^d$ and $\lambda \in [0,1]$.
+
+Set $a = \lambda x$ and $b = (1-\lambda)y$. Applying the Minkowski inequality:
+\begin{align*}
+\|\lambda x + (1-\lambda)y\|_p &\leq \|\lambda x\|_p + \|(1-\lambda)y\|_p \\
+&= |\lambda| \cdot \|x\|_p + |1-\lambda| \cdot \|y\|_p \\
+&= \lambda \|x\|_p + (1-\lambda)\|y\|_p,
+\end{align*}
+where we used the absolute homogeneity of norms: $\|\alpha z\|_p = |\alpha| \cdot \|z\|_p$.
+
+Since $\lambda \in [0,1]$, both $\lambda \geq 0$ and $1-\lambda \geq 0$, so:
+\[
+\|\lambda x + (1-\lambda)y\|_p \leq \lambda \|x\|_p + (1-\lambda)\|y\|_p.
+\]
+
+This is precisely the definition of convexity.
+
+\bigskip
+
+\textbf{Remark (Proof of Minkowski Inequality):}
+
+For completeness, the Minkowski inequality is typically proved using H\"older's inequality. For $p > 1$, let $q$ be the conjugate exponent satisfying $\frac{1}{p} + \frac{1}{q} = 1$.
+
+H\"older's inequality states:
+\[
+\sum_{i=1}^{d}|a_i b_i| \leq \|a\|_p \|b\|_q.
+\]
+
+Using this, one can show:
+\begin{align*}
+\|a + b\|_p^p &= \sum_{i=1}^{d}|a_i + b_i|^p \\
+&= \sum_{i=1}^{d}|a_i + b_i|^{p-1}|a_i| + \sum_{i=1}^{d}|a_i + b_i|^{p-1}|b_i| \\
+&\leq \||a+b|^{p-1}\|_q \cdot \|a\|_p + \||a+b|^{p-1}\|_q \cdot \|b\|_p \\
+&= \|a + b\|_p^{p/q}(\|a\|_p + \|b\|_p).
+\end{align*}
+
+Since $p - \frac{p}{q} = 1$, dividing both sides by $\|a+b\|_p^{p/q}$ yields:
+\[
+\|a + b\|_p \leq \|a\|_p + \|b\|_p.
+\]
+
+\bigskip
+
+\textbf{Conclusion:} For all $p \geq 1$, the $p$-norm $\|x\|_p$ is a convex function, as a direct consequence of the Minkowski inequality (triangle inequality for $p$-norms).
+
+\end{proof}
+	
+	\item[4.]
+\textbf{Problem:} Recall the Online Gradient Descent algorithm. We know that setting a constant learning rate $\eta^* = \frac{D}{L\sqrt{T}}$ gives us regret $DL\sqrt{T}$. We can achieve similar regret with a dynamic learning rate.
+
+\begin{enumerate}
+    \item Prove that $\sum_{t=1}^{T}\frac{1}{\sqrt{t}} \leq 2\sqrt{T} - 1$
+    \item Show the regret of OGD if we choose $\eta_t \propto \frac{1}{\sqrt{t}}$. [Hint: use the above inequality.]
+\end{enumerate}
+
+\bigskip
+
+\textbf{Solution:}
+
+\bigskip
+
+\textbf{Part (1): Prove that $\displaystyle\sum_{t=1}^{T}\frac{1}{\sqrt{t}} \leq 2\sqrt{T} - 1$}
+
+\begin{proof}
+We use the integral comparison technique. Since $f(t) = \frac{1}{\sqrt{t}}$ is a decreasing function for $t > 0$, we have:
+\[
+\frac{1}{\sqrt{t}} \leq \int_{t-1}^{t} \frac{1}{\sqrt{x}}\, dx \quad \text{for } t \geq 2.
+\]
+
+This is because the function value at $t$ (the right endpoint) is less than or equal to the average value over the interval $[t-1, t]$ for a decreasing function.
+
+Therefore:
+\begin{align*}
+\sum_{t=1}^{T}\frac{1}{\sqrt{t}} &= \frac{1}{\sqrt{1}} + \sum_{t=2}^{T}\frac{1}{\sqrt{t}} \\
+&\leq 1 + \sum_{t=2}^{T}\int_{t-1}^{t}\frac{1}{\sqrt{x}}\, dx \\
+&= 1 + \int_{1}^{T}\frac{1}{\sqrt{x}}\, dx \\
+&= 1 + \left[2\sqrt{x}\right]_{1}^{T} \\
+&= 1 + 2\sqrt{T} - 2 \\
+&= 2\sqrt{T} - 1.
+\end{align*}
+
+Thus, we have proven:
+\[
+\boxed{\sum_{t=1}^{T}\frac{1}{\sqrt{t}} \leq 2\sqrt{T} - 1}
+\]
+\end{proof}
+
+\bigskip
+
+\textbf{Part (2): Show the regret of OGD with $\eta_t \propto \frac{1}{\sqrt{t}}$}
+
+\begin{proof}
+Recall the regret bound for Online Gradient Descent with time-varying learning rates. From the standard OGD analysis, we have the following bound for the regret:
+\[
+R_T = \sum_{t=1}^{T}f_t(x_t) - \sum_{t=1}^{T}f_t(x^*) \leq \sum_{t=1}^{T}\left(\frac{\|x_t - x^*\|^2}{2\eta_t} - \frac{\|x_{t+1} - x^*\|^2}{2\eta_t} + \frac{\eta_t}{2}\|g_t\|^2\right),
+\]
+where $g_t = \nabla f_t(x_t)$.
+
+With time-varying learning rates, using a telescoping argument and the fact that $\eta_t$ is decreasing, we get:
+\[
+R_T \leq \frac{D^2}{2\eta_T} + \frac{1}{2}\sum_{t=1}^{T}\eta_t \|g_t\|^2,
+\]
+where $D = \max_{x,y \in \mathcal{C}}\|x - y\|$ is the diameter of the constraint set.
+
+\bigskip
+
+\textbf{Setting the learning rate:} Let $\eta_t = \frac{D}{L\sqrt{t}}$, where $L$ is the Lipschitz constant satisfying $\|g_t\| \leq L$ for all $t$.
+
+\bigskip
+
+\textbf{Bounding the first term:}
+\[
+\frac{D^2}{2\eta_T} = \frac{D^2}{2 \cdot \frac{D}{L\sqrt{T}}} = \frac{D^2 \cdot L\sqrt{T}}{2D} = \frac{DL\sqrt{T}}{2}.
+\]
+
+The distributive property is applied properly:
+\begin{itemize}
+    \item $\frac{DL}{2} \times 2\sqrt{T} = DL\sqrt{T}$
+    \item $\frac{DL}{2} \times 1 = \frac{DL}{2}$
+\end{itemize}
+
+\textbf{Bounding the second term:}
+\begin{align*}
+\frac{1}{2}\sum_{t=1}^{T}\eta_t\|g_t\|^2 &\leq \frac{1}{2}\sum_{t=1}^{T}\eta_t L^2 \\
+&= \frac{L^2}{2}\sum_{t=1}^{T}\frac{D}{L\sqrt{t}} \\
+&= \frac{DL}{2}\sum_{t=1}^{T}\frac{1}{\sqrt{t}} \\
+&\leq \frac{DL}{2}(2\sqrt{T} - 1) \quad \text{(using Part 1)} \\
+&= DL\sqrt{T} - \frac{DL}{2}.\text{(by distributive property)}
+\end{align*}
+
+In my bound for the second term, I have:
+$$\frac{DL}{2}\sum_{t=1}^{T}\frac{1}{\sqrt{t}} \leq \frac{DL}{2}(2\sqrt{T} - 1)$$
+
+When I expand $(2\sqrt{T} - 1)$:
+$$\frac{DL}{2}(2\sqrt{T} - 1) = \frac{DL}{2} \cdot 2\sqrt{T} - \frac{DL}{2} \cdot 1$$
+
+The DL/2 comes from:
+$$\frac{DL}{2} \times (-1) = -\frac{DL}{2}$$
+
+\textbf{Total regret bound:}
+\begin{align*}
+R_T &\leq \frac{DL\sqrt{T}}{2} + DL\sqrt{T} - \frac{DL}{2} \\
+&= \frac{3}{2}DL\sqrt{T} - \frac{DL}{2} \\
+&\leq \frac{3}{2}DL\sqrt{T}.
+\end{align*}
+
+\bigskip
+
+\textbf{Conclusion:} With the dynamic learning rate $\eta_t = \frac{D}{L\sqrt{t}}$, the regret of Online Gradient Descent is:
+\[
+\boxed{R_T \leq \frac{3}{2}DL\sqrt{T} = O(DL\sqrt{T})}
+\]
+
+This achieves the same $O(\sqrt{T})$ regret rate as the constant learning rate $\eta^* = \frac{D}{L\sqrt{T}}$, but importantly, the dynamic learning rate does \textbf{not require knowledge of $T$ in advance}. This makes it an \textbf{anytime} algorithm.
+
+\bigskip
+
+\textbf{Remark:} The constant factor $\frac{3}{2}$ is slightly worse than the constant factor of $1$ achieved by the optimal constant learning rate, but this is a small price to pay for not needing to know the time horizon $T$ ahead of time.
+
+\end{proof}
+
+        \item[5.]
+\textbf{Problem:} Recall FTL for number-guessing game. Extend the previous algorithm and analysis to the vector case when the adversary selects a vector $y_t \in \mathbb{R}^d$, $\|y\|_2 \leq 1$, the algorithm guesses a vector $x_t \in \mathbb{R}^d$, and the loss function is $(x_t - y_t)^2$. Show an upper bound to the regret logarithmic in $T$ that is independent from $d$.
+
+\bigskip
+
+\textbf{Solution:}
+
+\begin{proof}
+
+\textbf{Step 1: Define the FTL Algorithm for the Vector Case}
+
+The loss at round $t$ is:
+\[
+\ell_t(x) = \|x - y_t\|_2^2 = \sum_{i=1}^{d}(x_i - y_{t,i})^2.
+\]
+
+The cumulative loss up to time $t-1$ is:
+\[
+L_{t-1}(x) = \sum_{s=1}^{t-1}\|x - y_s\|_2^2.
+\]
+
+The FTL algorithm chooses:
+\[
+x_t = \arg\min_{x \in \mathbb{R}^d} L_{t-1}(x) = \arg\min_{x \in \mathbb{R}^d} \sum_{s=1}^{t-1}\|x - y_s\|_2^2.
+\]
+
+\bigskip
+
+\textbf{Step 2: Compute the FTL Prediction}
+
+Taking the gradient and setting it to zero:
+\[
+\nabla_x L_{t-1}(x) = \sum_{s=1}^{t-1} 2(x - y_s) = 2(t-1)x - 2\sum_{s=1}^{t-1}y_s = 0.
+\]
+
+Solving for $x$:
+\[
+x_t = \frac{1}{t-1}\sum_{s=1}^{t-1}y_s = \bar{y}_{t-1},
+\]
+where $\bar{y}_{t-1}$ is the average of all previous adversary vectors.
+
+For $t = 1$, we initialize $x_1 = 0$ (or any fixed point).
+
+\bigskip
+
+\textbf{Step 3: Use the FTL Lemma (Be-The-Leader Bound)}
+
+The standard FTL lemma states:
+\[
+\sum_{t=1}^{T}\ell_t(x_t) - \sum_{t=1}^{T}\ell_t(x^*) \leq \sum_{t=1}^{T}\left[\ell_t(x_t) - \ell_t(x_{t+1})\right],
+\]
+where $x^* = \arg\min_x \sum_{t=1}^{T}\ell_t(x) = \bar{y}_T$ is the best fixed action in hindsight.
+
+\bigskip
+
+\textbf{Step 4: Bound the Instantaneous Regret}
+
+We need to bound $\ell_t(x_t) - \ell_t(x_{t+1})$ for each $t$.
+
+Recall:
+\begin{align*}
+x_t &= \frac{1}{t-1}\sum_{s=1}^{t-1}y_s = \bar{y}_{t-1} \quad (\text{for } t \geq 2), \\
+x_{t+1} &= \frac{1}{t}\sum_{s=1}^{t}y_s = \bar{y}_t.
+\end{align*}
+
+We can write the update relation:
+\[
+x_{t+1} = \bar{y}_t = \frac{(t-1)\bar{y}_{t-1} + y_t}{t} = \frac{t-1}{t}x_t + \frac{1}{t}y_t.
+\]
+
+Therefore:
+\[
+x_{t+1} - x_t = \frac{1}{t}(y_t - x_t).
+\]
+
+Now compute:
+\begin{align*}
+\ell_t(x_t) - \ell_t(x_{t+1}) &= \|x_t - y_t\|_2^2 - \|x_{t+1} - y_t\|_2^2.
+\end{align*}
+
+Using $x_{t+1} = x_t + \frac{1}{t}(y_t - x_t) = \frac{t-1}{t}x_t + \frac{1}{t}y_t$:
+\[
+x_{t+1} - y_t = \frac{t-1}{t}x_t + \frac{1}{t}y_t - y_t = \frac{t-1}{t}(x_t - y_t).
+\]
+
+Thus:
+\[
+\|x_{t+1} - y_t\|_2^2 = \left(\frac{t-1}{t}\right)^2\|x_t - y_t\|_2^2.
+\]
+
+Therefore:
+\begin{align*}
+\ell_t(x_t) - \ell_t(x_{t+1}) &= \|x_t - y_t\|_2^2 - \left(\frac{t-1}{t}\right)^2\|x_t - y_t\|_2^2 \\
+&= \|x_t - y_t\|_2^2 \left[1 - \left(\frac{t-1}{t}\right)^2\right] \\
+&= \|x_t - y_t\|_2^2 \cdot \frac{t^2 - (t-1)^2}{t^2} \\
+&= \|x_t - y_t\|_2^2 \cdot \frac{2t - 1}{t^2}.
+\end{align*}
+
+\bigskip
+
+\textbf{Step 5: Bound $\|x_t - y_t\|_2^2$}
+
+Since $x_t = \bar{y}_{t-1}$ is an average of vectors with $\|y_s\|_2 \leq 1$, we have $\|x_t\|_2 \leq 1$.
+
+Also, $\|y_t\|_2 \leq 1$.
+
+By the triangle inequality:
+\[
+\|x_t - y_t\|_2 \leq \|x_t\|_2 + \|y_t\|_2 \leq 2.
+\]
+
+Therefore:
+\[
+\|x_t - y_t\|_2^2 \leq 4.
+\]
+
+\bigskip
+
+\textbf{Step 6: Compute the Total Regret Bound}
+
+\begin{align*}
+R_T &\leq \sum_{t=1}^{T}\left[\ell_t(x_t) - \ell_t(x_{t+1})\right] \\
+&\leq \sum_{t=1}^{T} 4 \cdot \frac{2t-1}{t^2} \\
+&= 4\sum_{t=1}^{T}\frac{2t-1}{t^2} \\
+&= 4\sum_{t=1}^{T}\left(\frac{2}{t} - \frac{1}{t^2}\right) \\
+&= 8\sum_{t=1}^{T}\frac{1}{t} - 4\sum_{t=1}^{T}\frac{1}{t^2}.
+\end{align*}
+
+Using the bounds:
+\begin{itemize}
+    \item $\sum_{t=1}^{T}\frac{1}{t} \leq 1 + \ln T$
+    \item $\sum_{t=1}^{T}\frac{1}{t^2} \leq \frac{\pi^2}{6} < 2$ (converges)
+\end{itemize}
+
+We get:
+\begin{align*}
+R_T &\leq 8(1 + \ln T) - 4 \cdot 0 \\
+&= 8 + 8\ln T.
+\end{align*}
+
+More precisely, since $\sum_{t=1}^{T}\frac{1}{t^2} > 0$:
+\[
+R_T \leq 8(1 + \ln T) = 8 + 8\ln T.
+\]
+
+\bigskip
+
+\textbf{Conclusion:}
+\[
+\boxed{R_T \leq 8(1 + \ln T) = O(\log T)}
+\]
+
+The regret bound is \textbf{logarithmic in $T$} and \textbf{independent of the dimension $d$}. This remarkable dimension-free property arises because:
+\begin{enumerate}
+    \item The FTL prediction (the running average) has a simple closed form.
+    \item The squared Euclidean loss decomposes coordinate-wise, but the key quantity $\|x_t - y_t\|_2^2$ is bounded by a constant (4) independent of $d$, due to the constraint $\|y_t\|_2 \leq 1$.
+\end{enumerate}
+
+\end{proof}
+        \item[6.]
+        \textbf{Problem:} Assuming $\|g_t\|_2 \leq L$ and $\|x\|_2 \leq D, \forall x \in V$. Show that FTRL with regularization $\psi(w) = \frac{1}{2\eta}\|x\|_2^2$ for linear losses $\ell_t(x) = g_t^\top x$, $x \in V$ achieves a sublinear regret.
+
+\bigskip
+
+\textbf{Solution:}
+
+\begin{proof}
+
+\textbf{Step 1: Define the FTRL Algorithm}
+
+The Follow-The-Regularized-Leader (FTRL) algorithm with regularizer $\psi(x) = \frac{1}{2\eta}\|x\|_2^2$ selects:
+\[
+x_{t+1} = \arg\min_{x \in V} \left\{\sum_{s=1}^{t} \ell_s(x) + \psi(x)\right\} = \arg\min_{x \in V} \left\{\sum_{s=1}^{t} g_s^\top x + \frac{1}{2\eta}\|x\|_2^2\right\}.
+\]
+
+\bigskip
+
+\textbf{Step 2: FTRL Regret Lemma}
+
+For FTRL, the regret against any comparator $u \in V$ satisfies:
+\[
+R_T = \sum_{t=1}^{T}\ell_t(x_t) - \sum_{t=1}^{T}\ell_t(u) \leq \psi(u) - \psi(x_1) + \sum_{t=1}^{T}\left[\ell_t(x_t) - \ell_t(x_{t+1})\right].
+\]
+
+Since $\psi(x) = \frac{1}{2\eta}\|x\|_2^2 \geq 0$ and we can initialize $x_1 = 0$ (so $\psi(x_1) = 0$):
+\[
+R_T \leq \psi(u) + \sum_{t=1}^{T}\left[\ell_t(x_t) - \ell_t(x_{t+1})\right].
+\]
+
+\bigskip
+
+\textbf{Step 3: Compute the FTRL Update}
+
+For unconstrained optimization (or when the constraint is not active), taking the gradient:
+\[
+\nabla_x \left[\sum_{s=1}^{t} g_s^\top x + \frac{1}{2\eta}\|x\|_2^2\right] = \sum_{s=1}^{t} g_s + \frac{1}{\eta}x = 0.
+\]
+
+This gives:
+\[
+x_{t+1} = -\eta \sum_{s=1}^{t} g_s.
+\]
+
+If projection onto $V$ is needed, then $x_{t+1} = \Pi_V\left(-\eta \sum_{s=1}^{t} g_s\right)$.
+
+\bigskip
+
+\textbf{Recall (Cauchy-Schwarz Inequality):} For any vectors $a, b \in \mathbb{R}^d$:
+$$|a^\top b| \leq \|a\|_2 \cdot \|b\|_2$$
+
+\textbf{Step 4: Bound the Stability Term $\ell_t(x_t) - \ell_t(x_{t+1})$}
+
+For linear losses:
+\[
+\ell_t(x_t) - \ell_t(x_{t+1}) = g_t^\top x_t - g_t^\top x_{t+1} = g_t^\top(x_t - x_{t+1}).
+\]
+
+By Cauchy-Schwarz inequality:
+\[
+g_t^\top(x_t - x_{t+1}) \leq \|g_t\|_2 \cdot \|x_t - x_{t+1}\|_2 \leq L\|x_t - x_{t+1}\|_2.
+\]
+
+\bigskip
+
+\textbf{Step 5: Bound $\|x_t - x_{t+1}\|_2$}
+
+From the FTRL update (unconstrained case):
+\begin{align*}
+x_t &= -\eta\sum_{s=1}^{t-1}g_s, \\
+x_{t+1} &= -\eta\sum_{s=1}^{t}g_s.
+\end{align*}
+
+Therefore:
+\[
+x_{t+1} - x_t = -\eta g_t,
+\]
+and
+\[
+\|x_t - x_{t+1}\|_2 = \eta\|g_t\|_2 \leq \eta L.
+\]
+
+For the projected case, projection onto a convex set is non-expansive, so the same bound holds.
+
+\bigskip
+
+\textbf{Step 6: Combine the Bounds}
+
+The stability term is bounded by:
+\[
+\ell_t(x_t) - \ell_t(x_{t+1}) \leq L \cdot \eta L = \eta L^2.
+\]
+
+Summing over all rounds:
+\[
+\sum_{t=1}^{T}\left[\ell_t(x_t) - \ell_t(x_{t+1})\right] \leq \eta L^2 T.
+\]
+
+\bigskip
+
+\textbf{Step 7: Total Regret Bound}
+
+For any comparator $u \in V$ with $\|u\|_2 \leq D$:
+\[
+\psi(u) = \frac{1}{2\eta}\|u\|_2^2 \leq \frac{D^2}{2\eta}.
+\]
+
+Therefore, the total regret is:
+\[
+R_T \leq \frac{D^2}{2\eta} + \eta L^2 T.
+\]
+
+\bigskip
+
+\textbf{Step 8: Optimize the Learning Rate $\eta$}
+
+To minimize the bound, we take the derivative with respect to $\eta$ and set it to zero:
+\[
+\frac{d}{d\eta}\left(\frac{D^2}{2\eta} + \eta L^2 T\right) = -\frac{D^2}{2\eta^2} + L^2 T = 0.
+\]
+
+Solving for $\eta$:
+\[
+\eta^* = \frac{D}{L\sqrt{2T}}.
+\]
+
+\bigskip
+
+\textbf{Step 9: Final Regret Bound}
+
+Substituting $\eta^* = \frac{D}{L\sqrt{2T}}$:
+
+\textbf{First term:}
+\begin{align*}
+\frac{D^2}{2\eta^*} &= \frac{D^2}{2} \cdot \frac{L\sqrt{2T}}{D} = \frac{D^2 \cdot L\sqrt{2T}}{2D} = \frac{DL\sqrt{2T}}{2}
+\end{align*}
+
+\textbf{Second term:}
+\begin{align*}
+\eta^* L^2 T &= \frac{D}{L\sqrt{2T}} \cdot L^2 T = \frac{DLT}{\sqrt{2T}} = \frac{DL\sqrt{T}}{\sqrt{2}} = \frac{DL\sqrt{2T}}{2}
+\end{align*}
+
+\textbf{Total:}
+\begin{align*}
+R_T &\leq \frac{DL\sqrt{2T}}{2} + \frac{DL\sqrt{2T}}{2} = DL\sqrt{2T}
+\end{align*}
+
+\bigskip
+
+\textbf{Conclusion:}
+
+\[
+\boxed{R_T \leq DL\sqrt{2T} = O\left(\sqrt{T}\right)}
+\]
+
+The regret bound $O(\sqrt{T})$ is \textbf{sublinear} in $T$, which means:
+\[
+\lim_{T \to \infty} \frac{R_T}{T} = \lim_{T \to \infty} \frac{DL\sqrt{2T}}{T} = \lim_{T \to \infty} \frac{DL\sqrt{2}}{\sqrt{T}} = 0.
+\]
+
+This guarantees that the average regret $\frac{R_T}{T} \to 0$ as $T \to \infty$, meaning FTRL performs nearly as well as the best fixed decision in hindsight.
+
+\bigskip
+
+\textbf{Summary:}
+\begin{itemize}
+    \item FTRL update: $x_{t+1} = \Pi_V\left(-\eta\sum_{s=1}^{t}g_s\right)$
+    \item Optimal learning rate: $\eta^* = \frac{D}{L\sqrt{2T}}$
+    \item Regret bound: $R_T \leq DL\sqrt{2T} = O(\sqrt{T})$ (sublinear)
+\end{itemize}
+
+\end{proof}
+
+\end{enumerate}
+	
+\end{document}
